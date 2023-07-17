@@ -1,0 +1,38 @@
+import { BrowserRouter as Router } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import "./App.css";
+import Navbar from "./Navbar/Navbar";
+import AllRoutes from "./AllRoutes";
+import { fetchAllQuestions } from "./actions/question";
+import { fetchAllUsers } from "./actions/users";
+
+function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllQuestions());
+    dispatch(fetchAllUsers());
+  }, [dispatch]);
+
+  const [setSlideIn] = useState(true);
+
+  useEffect(() => {
+    if (window.innerWidth <= 760) {
+      setSlideIn(false);
+    }
+  }, []);
+
+  
+
+  return (
+    <div className="App">
+      <Router>
+        <Navbar  />
+        <AllRoutes />
+      </Router>
+    </div>
+  );
+}
+
+export default App;
